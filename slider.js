@@ -9,6 +9,33 @@ const bottom = document.querySelector(".bottom");
 let sliderValue = 1;
 const length = images.length;
 
+for(let i = 0; i<length; i++)
+{
+    const div = document.createElement("div");
+    div.className = "button";
+
+    bottom.appendChild(div);
+
+}
+
+const resetBg = () => {
+    buttons.forEach(button =>{
+        button.style.backgroundColor = "transparent";
+    })
+}
+
+const buttons = document.querySelectorAll(".button");
+
+buttons[0].style.backgroundColor = "white";
+
+buttons.forEach((button, i) =>{
+    button.addEventListener("click",  () => {
+        resetBg();
+        slider.style.transform = `translateX(-${i * 400}px)`;
+        button.style.backgroundColor = "White";
+    })
+})
+
 const changeImages = () => {
 
     console.log("moved the image");
@@ -40,9 +67,15 @@ const lastSlide = () =>{
 }
 
 
+const backRemove = () => {
+    resetBg();
+    buttons[sliderValue-1].style.backgroundColor = "White";
+}
+
 right.addEventListener("click", ()=>{
 
     sliderValue < length ? changeImages() : goToStart();
+    backRemove();
 
 } )
 
@@ -50,14 +83,9 @@ right.addEventListener("click", ()=>{
 left.addEventListener("click", () =>{
 
     sliderValue > 1 ? prevSlide() : lastSlide();
+    backRemove();
 
 })
 
-for(let i = 0; i<length; i++)
-{
-    const div = document.createElement("div");
-    div.className = "button";
 
-    bottom.appendChild(div);
 
-}
